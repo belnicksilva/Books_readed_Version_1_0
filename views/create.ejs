@@ -1,0 +1,74 @@
+<%- include('partials/header.ejs'); -%>
+<a id="intro_title" href="" target="_blank">Readed books</a>
+    <div id="sidemenu">
+      <div class="btn btn_s  btn__secondary"><p class="btn_icon"><i class="fa-solid fa-user-secret fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-brands fa-bitcoin fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-arrow-trend-up fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary"><p class="btn_icon"><i class="fa-solid fa-music fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-arrows-to-eye fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-code fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary "><p class="btn_icon"><i class="fa-solid fa-dollar-sign fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-brain fa-2xl"></i></p></div>
+      <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-bolt fa-2xl"></i></p></div>
+</div>
+    
+    <!-- Tab links -->
+<div class="tab">
+  <button class="tablinks first_btn" onclick="window.location.href='/'">Read</button>
+  <button class="tablinks last_btn" onClick="history.go(0);">Create</button>
+  
+</div>
+
+<div id="Create" class="tabcontent">
+  <div class="content">
+    <h3>Create new book</h3>
+    <div class="container" style="border-bottom: none;">
+      <div class="row justify-content-start">
+        <div class="col-3">
+          <div class="book_image_s">
+            <img id="imag_creat" 
+            <% if(!imag_flag){%>
+                src=""
+              <%} else{%>
+                src=<%= image %>
+                <% } %>
+            alt="Image" >
+          </div>
+        </div>
+        <div class="col-9 div_marg">
+          <form action="/external_search" id="form2" method="post" onsubmit="return validateForm()">
+            <label class="create_label" for="title">ISBN code: </label>
+            <% if(!imag_flag){%>
+                <input type="text" class="input_field" id="isbn" name="isbn" maxlength="20" required>
+            <% }else{ %>
+              <input type="text" class="input_field" id="isbn" name="isbn" maxlength="20" value="<%= isbn %>">
+            <% } %>
+            <input type="submit" class="btn btn_se" value="Search"> 
+            <br><br>
+          </form>
+          <% if(imag_flag){ %>
+              <form id="create_export" action="/create" method="post">
+                <label class="create_label"for="title">Book title: </label>
+                <input type="text" class="input_field" id="title" name="nome" maxlength="30"><br><br>
+                <label class="create_label" for="">Classification:</label>
+                <i id="s1" class="classif fa-solid fa-star fa-lg"></i>
+                <i id="s2" class="classif fa-solid fa-star fa-lg"></i>
+                <i id="s3" class="classif fa-solid fa-star fa-lg"></i>
+                <i id="s4" class="classif fa-solid fa-star fa-lg"></i>
+                <i id="s5" class="classif fa-solid fa-star fa-lg"></i>
+                <input type="hidden" name="rate" id="rate" value="">
+                <br><br>
+                <label class="create_label" for="">Reading Date: </label>
+                <input type="date" class="input_field" id="date" name="creatDate" required><br><br>
+                <label class="create_label" for="resume">Resume</label><br>
+                <textarea id="resume" class="input_field" name="creatResume" rows="9" cols="90" placeholder="Write less than 200 letters" maxlength="500" required></textarea>
+                <input type="submit" class="btn btn_c" value="Create" onclick="window.location.href='/'">
+              </form>
+          <% } %>
+        </div>
+
+      </div>
+    </div><br>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>

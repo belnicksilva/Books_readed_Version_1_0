@@ -1,0 +1,345 @@
+<%- include('partials/header.ejs'); -%>
+<%var book1=book2=book3=book4=book.rows;%>
+<a id="intro_title" href="" target="_blank">Readed books</a>
+<div id="sidemenu">
+  <div class="btn btn_s  btn__secondary"><p class="btn_icon"><i class="fa-solid fa-user-secret fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-brands fa-bitcoin fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-arrow-trend-up fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary"><p class="btn_icon"><i class="fa-solid fa-music fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-arrows-to-eye fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-code fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary "><p class="btn_icon"><i class="fa-solid fa-dollar-sign fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-brain fa-2xl"></i></p></div>
+  <div class="btn btn_s btn__secondary btn_marg"><p class="btn_icon"><i class="fa-solid fa-bolt fa-2xl"></i></p></div>
+</div>
+    
+    <!-- Tab links -->
+<div class="tab">
+  <button class="tablinks first_btn">Read</button>
+  <button class="tablinks last_btn" onclick="window.location.href='create.ejs'">Create</button>
+</div>
+<div class="sort">
+  <label class="sort_title" for="sort_items">Sort:</label>
+  <select name="sort_items" id="sort_items">
+    <option value="id">Id</option>
+    <option value="rate">rate</option>
+    <option value="date">date</option>
+    <option value="title">Title</option>
+  </select>
+</div>
+<!-- Tab content read pag-->
+<div id="Read_1" class="tabcontent">
+  <%function byId(a,b){return b.id-a.id;}
+  book1.sort(byId);
+  book1.forEach(myFunction);
+  function myFunction(item,index) {%>
+    <div class="container" id="c<%=book1[index].id%>">
+      <div class="row justify-content-start">
+        <div class="col-2 book_image">
+          <img src="https://covers.openlibrary.org/b/isbn/<%=book1[index].isbn%>-M.jpg" alt="rich_dad" width="200" height="300">
+        </div> 
+        <div class="col-10">
+          <div id="read_<%=book1[index].id%>" class="read_content" value="<%=book1[index].id%>">
+            <div class="content_head">
+              <h3 class="book_title"><%=book1[index].nome%></h3>
+            </div>
+            <div class="content_i">
+              
+              <form action="/delete" method="post">
+                <i class="btn_edit fa-solid fa-pen fa-lg edit_<%=book1[index].id%>"></i>
+                <input type="hidden" name="id_edit" id="id_edit" value="<%=book1[index].id%>">
+                <button type="submit" class="btn_edit fa-solid fa-trash-can fa-lg delet_<%=book1[index].id%>" onclick="window.location.href='/'"></button>
+              </form>
+              
+            </div>
+            <div class="content_rate">
+              <p>ISBN Code: <%=book1[index].isbn%></p>
+              <p>Classification:
+                <%for(ii=1;ii<=5;ii++){%>
+                  <i class="fa-solid fa-star fa-lg <%if(ii<=book1[index].rate){%>checked<%}%>"></i>
+                <%}%>
+              </p>
+              <p>Data de leitura: <%=book1[index].data.toLocaleDateString("ja-JP")%></p>
+            </div>
+            <div class="book_resume">
+              <p><%=book1[index].resume%></p>
+            </div>
+          </div>
+          <div id="edit_<%=book1[index].id%>" class="edit_content" >
+            <div class="content_head">
+              <h3 class="book_title"><%=book1[index].nome%></h3><br>
+            </div>     
+            <form action="/update" method="post">
+              <div class="content_rate">
+                <p>ISBN Code: <%=book1[index].isbn%></p>
+                <label for="">Classification:</label>
+                  <% for(let iii=1;iii<=5;iii++){%>
+                      <i id="s<%=iii%><%=book1[index].id%>" class="fa-solid fa-star fa-lg classif <% if(iii<=book1[index].rate){%>checked<% } %>" value="<%=iii%>"></i>
+                  <% } %>
+                  <input type="hidden" name="rate_edit" id="rate_edit" value="<%=book1[index].rate%>">
+                  <input type="hidden" name="id_edit" id="id_edit" value="<%=book1[index].id%>">
+                  <input type="hidden" name="rate_comp" id="rate_comp" value="">
+                  <br><br>
+
+                  <label for="">Reading Date: </label>
+                  <%let dt=book1[index].data;
+                    let day = ("0" + dt.getDate()).slice(-2);
+                    let month = ("0" + (dt.getMonth() + 1)).slice(-2);
+                    let today = dt.getFullYear()+"-"+(month)+"-"+(day) ;%>
+                  <input type="date" class="input_field" id="date" name="editDate" value="<%=today%>"><br><br>
+              </div>
+              <div class="book_resume">
+                  <label for="resume">Resume</label><br>
+                  <textarea id="resume" class="input_field" name="editResume" rows="9" cols="105"><%=book1[index].resume%>         
+                  </textarea><br>
+                  <input type="submit" class="btn btn_c" value="Update" onclick="window.location.href='/'">
+                  <input type="button" class="btn btn_c" value="Cancel" class="cancel_edit" onclick="window.location.href='/'">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  <%}%>
+    
+</div>
+<div id="Read_2" class="tabcontent">
+  <%function byNome(a,b){
+    if(a.nome>b.nome){
+      return 1;
+    }else if(b.nome>a.nome){
+      return -1
+    }else{
+      return 0;
+    }
+  }
+book2=book2.sort(byNome);
+ book2.forEach(myFunction);
+  function myFunction(item,index) {%>
+    <div class="container" id="c<%=book2[index].id%>">
+      <div class="row justify-content-start">
+        <div class="col-2 book_image">
+          <img src="https://covers.openlibrary.org/b/isbn/<%=book2[index].isbn%>-M.jpg" alt="rich_dad" width="200" height="300">
+        </div> 
+        <div class="col-10">
+          <div id="read_<%=book2[index].id%>" class="read_content" value="<%=book2[index].id%>">
+            <div class="content_head">
+              <h3 class="book_title"><%=book2[index].nome%></h3>
+            </div>
+            <div class="content_i">
+              
+              <form action="/delete" method="post">
+                <i class="btn_edit fa-solid fa-pen fa-lg edit_<%=book2[index].id%>"></i>
+                <input type="hidden" name="id_edit" id="id_edit" value="<%=book2[index].id%>">
+                <button type="submit" class="btn_edit fa-solid fa-trash-can fa-lg delet_<%=book2[index].id%>" onclick="window.location.href='/'"></button>
+              </form>
+              
+            </div>
+            <div class="content_rate">
+              <p>ISBN Code: <%=book2[index].isbn%></p>
+              <p>Classification:
+                <%for(ii=1;ii<=5;ii++){%>
+                  <i class="fa-solid fa-star fa-lg <%if(ii<=book2[index].rate){%>checked<%}%>"></i>
+                <%}%>
+              </p>
+              <p>Data de leitura: <%=book2[index].data.toLocaleDateString("ja-JP")%></p>
+            </div>
+            <div class="book_resume">
+              <p><%=book2[index].resume%></p>
+            </div>
+          </div>
+          <div id="edit_<%=book2[index].id%>" class="edit_content" >
+            <div class="content_head">
+              <h3 class="book_title"><%=book2[index].nome%></h3><br>
+            </div>     
+            <form action="/update" method="post">
+              <div class="content_rate">
+                <p>ISBN Code: <%=book2[index].isbn%></p>
+                <label for="">Classification:</label>
+                  <% for(let iii=1;iii<=5;iii++){%>
+                      <i id="s<%=iii%><%=book2[index].id%>" class="fa-solid fa-star fa-lg classif <% if(iii<=book2[index].rate){%>checked<% } %>" value="<%=iii%>"></i>
+                  <% } %>
+                  <input type="hidden" name="rate_edit" id="rate_edit" value="<%=book2[index].rate%>">
+                  <input type="hidden" name="id_edit" id="id_edit" value="<%=book2[index].id%>">
+                  <input type="hidden" name="rate_comp" id="rate_comp" value="">
+                  <br><br>
+
+                  <label for="">Reading Date: </label>
+                  <%let dt=book2[index].data;
+                    let day = ("0" + dt.getDate()).slice(-2);
+                    let month = ("0" + (dt.getMonth() + 1)).slice(-2);
+                    let today = dt.getFullYear()+"-"+(month)+"-"+(day) ;%>
+                  <input type="date" class="input_field" id="date" name="editDate" value="<%=today%>"><br><br>
+              </div>
+              <div class="book_resume">
+                  <label for="resume">Resume</label><br>
+                  <textarea id="resume" class="input_field" name="editResume" rows="9" cols="105"><%=book2[index].resume%>         
+                  </textarea><br>
+                  <input type="submit" class="btn btn_c" value="Update" onclick="window.location.href='/'">
+                  <input type="button" class="btn btn_c" value="Cancel" class="cancel_edit" onclick="window.location.href='/'">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  <%}%>
+    
+</div>
+<div id="Read_3" class="tabcontent">
+  <%function byRate(a,b){return parseInt(b.rate)-parseInt(a.rate);}
+  book3=book3.sort(byRate);
+  book3.forEach(myFunction);
+  
+  function myFunction(item,index) {%>
+    <div class="container" id="c<%=book3[index].id%>">
+      <div class="row justify-content-start">
+        <div class="col-2 book_image">
+          <img src="https://covers.openlibrary.org/b/isbn/<%=book3[index].isbn%>-M.jpg" alt="rich_dad" width="200" height="300">
+        </div> 
+        <div class="col-10">
+          <div id="read_<%=book3[index].id%>" class="read_content" value="<%=book3[index].id%>">
+            <div class="content_head">
+              <h3 class="book_title"><%=book3[index].nome%></h3>
+            </div>
+            <div class="content_i">
+              
+              <form action="/delete" method="post">
+                <i class="btn_edit fa-solid fa-pen fa-lg edit_<%=book3[index].id%>"></i>
+                <input type="hidden" name="id_edit" id="id_edit" value="<%=book3[index].id%>">
+                <button type="submit" class="btn_edit fa-solid fa-trash-can fa-lg delet_<%=book3[index].id%>" onclick="window.location.href='/'"></button>
+              </form>
+              
+            </div>
+            <div class="content_rate">
+              <p>ISBN Code: <%=book3[index].isbn%></p>
+              <p>Classification:
+                <%for(ii=1;ii<=5;ii++){%>
+                  <i class="fa-solid fa-star fa-lg <%if(ii<=book3[index].rate){%>checked<%}%>"></i>
+                <%}%>
+              </p>
+              <p>Data de leitura: <%=book3[index].data.toLocaleDateString("ja-JP")%></p>
+            </div>
+            <div class="book_resume">
+              <p><%=book3[index].resume%></p>
+            </div>
+          </div>
+          <div id="edit_<%=book3[index].id%>" class="edit_content" >
+            <div class="content_head">
+              <h3 class="book_title"><%=book3[index].nome%></h3><br>
+            </div>     
+            <form action="/update" method="post">
+              <div class="content_rate">
+                <p>ISBN Code: <%=book3[index].isbn%></p>
+                <label for="">Classification:</label>
+                  <% for(let iii=1;iii<=5;iii++){%>
+                      <i id="s<%=iii%><%=book3[index].id%>" class="fa-solid fa-star fa-lg classif <% if(iii<=book3[index].rate){%>checked<% } %>" value="<%=iii%>"></i>
+                  <% } %>
+                  <input type="hidden" name="rate_edit" id="rate_edit" value="<%=book3[index].rate%>">
+                  <input type="hidden" name="id_edit" id="id_edit" value="<%=book3[index].id%>">
+                  <input type="hidden" name="rate_comp" id="rate_comp" value="">
+                  <br><br>
+
+                  <label for="">Reading Date: </label>
+                  <%let dt=book3[index].data;
+                    let day = ("0" + dt.getDate()).slice(-2);
+                    let month = ("0" + (dt.getMonth() + 1)).slice(-2);
+                    let today = dt.getFullYear()+"-"+(month)+"-"+(day) ;%>
+                  <input type="date" class="input_field" id="date" name="editDate" value="<%=today%>"><br><br>
+              </div>
+              <div class="book_resume">
+                  <label for="resume">Resume</label><br>
+                  <textarea id="resume" class="input_field" name="editResume" rows="9" cols="105"><%=book3[index].resume%>         
+                  </textarea><br>
+                  <input type="submit" class="btn btn_c" value="Update" onclick="window.location.href='/'">
+                  <input type="button" class="btn btn_c" value="Cancel" class="cancel_edit" onclick="window.location.href='/'">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  <%}%>
+    
+</div>
+<div id="Read_4" class="tabcontent">
+  <%function byDate(a,b){
+  return new Date(a.data).valueOf() - new Date(b.data).valueOf()}
+  book4=book4.sort(byDate);
+  book4.forEach(myFunction);
+  function myFunction(item,index) {%>
+    <div class="container" id="c<%=book4[index].id%>">
+      <div class="row justify-content-start">
+        <div class="col-2 book_image">
+          <img src="https://covers.openlibrary.org/b/isbn/<%=book4[index].isbn%>-M.jpg" alt="rich_dad" width="200" height="300">
+        </div> 
+        <div class="col-10">
+          <div id="read_<%=book4[index].id%>" class="read_content" value="<%=book4[index].id%>">
+            <div class="content_head">
+              <h3 class="book_title"><%=book4[index].nome%></h3>
+            </div>
+            <div class="content_i">
+              
+              <form action="/delete" method="post">
+                <i class="btn_edit fa-solid fa-pen fa-lg edit_<%=book4[index].id%>"></i>
+                <input type="hidden" name="id_edit" id="id_edit" value="<%=book4[index].id%>">
+                <button type="submit" class="btn_edit fa-solid fa-trash-can fa-lg delet_<%=book4[index].id%>" onclick="window.location.href='/'"></button>
+              </form>
+              
+            </div>
+            <div class="content_rate">
+              <p>ISBN Code: <%=book4[index].isbn%></p>
+              <p>Classification:
+                <%for(ii=1;ii<=5;ii++){%>
+                  <i class="fa-solid fa-star fa-lg <%if(ii<=book4[index].rate){%>checked<%}%>"></i>
+                <%}%>
+              </p>
+              <p>Data de leitura: <%=book4[index].data.toLocaleDateString("ja-JP")%></p>
+            </div>
+            <div class="book_resume">
+              <p><%=book4[index].resume%></p>
+            </div>
+          </div>
+          <div id="edit_<%=book4[index].id%>" class="edit_content" >
+            <div class="content_head">
+              <h3 class="book_title"><%=book4[index].nome%></h3><br>
+            </div>     
+            <form action="/update" method="post">
+              <div class="content_rate">
+                <p>ISBN Code: <%=book4[index].isbn%></p>
+                <label for="">Classification:</label>
+                  <% for(let iii=1;iii<=5;iii++){%>
+                      <i id="s<%=iii%><%=book4[index].id%>" class="fa-solid fa-star fa-lg classif <% if(iii<=book4[index].rate){%>checked<% } %>" value="<%=iii%>"></i>
+                  <% } %>
+                  <input type="hidden" name="rate_edit" id="rate_edit" value="<%=book4[index].rate%>">
+                  <input type="hidden" name="id_edit" id="id_edit" value="<%=book4[index].id%>">
+                  <input type="hidden" name="rate_comp" id="rate_comp" value="">
+                  <br><br>
+
+                  <label for="">Reading Date: </label>
+                  <%let dt=book4[index].data;
+                    let day = ("0" + dt.getDate()).slice(-2);
+                    let month = ("0" + (dt.getMonth() + 1)).slice(-2);
+                    let today = dt.getFullYear()+"-"+(month)+"-"+(day) ;%>
+                  <input type="date" class="input_field" id="date" name="editDate" value="<%=today%>"><br><br>
+              </div>
+              <div class="book_resume">
+                  <label for="resume">Resume</label><br>
+                  <textarea id="resume" class="input_field" name="editResume" rows="9" cols="105"><%=book4[index].resume%>         
+                  </textarea><br>
+                  <input type="submit" class="btn btn_c" value="Update" onclick="window.location.href='/'">
+                  <input type="button" class="btn btn_c" value="Cancel" class="cancel_edit" onclick="window.location.href='/'">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  <%}%>
+    
+</div>
+<%- include('partials/footer.ejs'); -%>

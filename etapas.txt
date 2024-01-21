@@ -1,0 +1,8 @@
+-Conectar front-end<->main_server<->database (db)
+    *Front-end<->main_server
+        +quando terminar tarefas de edit, create e delete este deve retornar a pagina read
+        +Após edit e delete
+-Front-end (create)
+    *emitir mostrar mensagem para isbn já registado
+-Criar botao sort para ordenar os resultados da pesquisa segundo datas, classificacao e nome
+    *utilizar jquery

@@ -1,0 +1,381 @@
+@keyframes tipsy {
+    0% {
+      transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+    100% {
+      transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
+  
+body {
+  font-family: helvetica, arial, sans-serif;
+  background-color: #2e2e31;
+}
+
+a {
+  text-decoration: none;
+  color: #fffbf1;
+  text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: -3px;
+  margin: 0;
+  position: absolute;
+  top: 23%;
+  left: 12%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+h3{
+  color: #fe736c;
+  display: block;
+  position: relative;
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 0px;
+}
+
+table{
+  position: relative;
+  display: block;
+  width: 90%;
+  top: 10px;
+  left: 2%;
+}
+
+#intro_title:before,
+#intro_title:after {
+content: '';
+padding: .9em .4em;
+position: absolute;
+left: 50%;
+width: 110%;
+top: 50%;
+display: block;
+border: 15px solid #fb544b;
+transform: translateX(-50%) translateY(-50%) rotate(0deg);
+animation: 10s infinite alternate ease-in-out tipsy;
+}
+
+a:before {
+border-color: #d9524a #d9524a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+z-index: -1;
+}
+
+a:after {
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d9524a #d9524a;
+    box-shadow: 25px 25px 25px rgba(46, 46, 49, .8);
+}
+
+#headmenu{
+  position: absolute;
+  left: 25%;
+  top:5%;
+  width: 75%;
+}
+
+#sidemenu{
+  position: absolute;
+  top: 43%;
+  left: 1%;
+  width: 22.5%;
+}
+
+.btn_s,.btn{
+  color: #636060;
+  padding: 20px 35px 10px 30px;
+  background-color: inherit;
+  width: 9.5%;
+  border:5px solid #636060;
+  border-radius: 10px;
+  box-shadow: 4px 4px 5px rgb(0, 0, 0),-2px -2px 5px rgb(85, 83, 83);
+  text-align: center;
+  transition: all 0.5s;
+  transition-timing-function: linear;
+  margin-top: 10px;
+}
+.btn_s{
+  width: 30%;
+}
+
+.btn_c, .btn_se{
+  color: #7c7c7c;
+  text-align:center;
+  padding: 10px !important;
+  width: 15% !important;
+}
+
+.btn_se{
+  padding: 2px !important;
+  font-size: 12px;
+  border:2px solid #636060;
+  width: fit-content;
+  margin-top:7px;
+  width: 10% !important;
+}
+
+.btn:hover{
+  color:#d9524a;
+  border-color: #694e4d;
+}
+
+.btn_icon{
+  text-shadow: 4px 4px 5px rgb(0, 0, 0);
+}
+
+.btn_marg,.div_marg{
+  margin-left: 10px;
+}
+
+.btn_tab {
+  height: fit-content;
+
+}
+
+.btn_tab a{
+  font-size: 13px !important;
+}
+
+/* Style the tab */
+.tab, .tabcontent {
+  position: absolute;
+  top: 17%;
+  left: 25%; 
+  width: 73%;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  box-shadow: 4px 4px 5px rgb(0, 0, 0),-2px -2px 5px rgb(85, 83, 83);
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  color: #d9524a;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  background-color: #3f3f43;
+  padding: 6px 12px;
+  top: 27%;
+  height: 70%;
+  color:white;
+  overflow: auto;
+  border:5px solid inherit;
+  border-radius: 10px;
+  animation: fadeEffect 1s;
+  box-shadow: 6px 6px 8px rgb(0, 0, 0),-1px -1px 1px rgb(0, 0, 0);
+}
+
+#intro_title, #intro_title:hover{
+  text-decoration:none;
+  color:white;
+  cursor:default;
+}
+
+
+.first_btn{
+  color: #8b8b91;
+  border:5px solid #3f3f43 !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 5px; 
+  padding:5px;
+}
+
+.last_btn{
+  color: #8b8b91;
+  border:5px solid #3f3f43 !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 10px; 
+  padding:5px;
+  margin-left:10px;
+}
+
+.active{
+  box-shadow: none;
+  box-shadow: 4px 4px 5px rgb(0, 0, 0),-2px -2px 5px rgb(85, 83, 83);
+  background-color: #3f3f43 !important;
+  color: white;
+}
+
+.row{
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.content, .container{
+  text-align: left;
+  height: fit-content;
+  border-bottom: 2px solid rgb(113, 113, 112);
+  margin:3% 0 0 3%;
+  padding: 0;
+}
+
+.content{
+  border:none;
+  width: 75%;
+}
+
+.content_input{
+  margin-left: 10px;
+  position: relative !important; 
+  left:25%;
+}
+
+.content_create{
+  width: 100% !important;
+}
+
+.book_image{
+  position: relative;
+  left: 0;
+}
+
+.book_image img{
+  border:5px solid gray;
+  border-radius: 10px;
+}
+
+.book_image_s,#imag_creat{
+  width:200px !important;
+  height:300px !important;
+  background-color: #484545;
+}
+
+.book_title,.content_rate{
+  width: fit-content;
+}
+
+.content_head{
+  position: relative;
+  max-height: 50px;
+  width: fit-content;
+  left: 5%;
+}
+
+.content_i{
+  left:50%;
+  position: relative !important; 
+  width: fit-content;
+}
+
+.create_label{
+  font-size: 18px;
+  color: rgb(169, 168, 168);
+}
+
+.book_resume,.content_rate{
+  position: relative !important; 
+  left:5%;
+}
+
+.book_resume{
+  width: 95%;
+  text-align: justify;
+}
+
+.btn_edit{
+  background-color: inherit;
+  padding: 10px;
+  color:rgb(161, 161, 161);
+  border:none;
+  margin-left: 10px;
+}
+
+.fa-star{
+  color:rgb(118, 117, 117);
+}
+
+.btn_edit:hover{
+  color:#d9524a;
+  border:none;
+  transition: all 0.2s;
+  transition-timing-function: linear;
+}
+
+.classif_livro p{
+  padding: 5px 0 0 0;
+  margin: 5px 0 0 0;
+}
+
+.sort{
+  display: inline;
+  position: absolute;
+  top: 20%;
+  left: 40%; 
+  width: 50%;
+}
+
+.sort_title{
+  color: #ccc;
+  font-size: 24px;
+}
+
+#sort_items,#sort_items .select-options {
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #3f3f43 !important;
+  color: #fe736c !important;
+  width: 100px;
+  height: 25px;
+  border: none;
+}
+
+/*---------------Create tab------------------*/
+.input_field{
+  color: rgb(211, 211, 211);
+  background-color: #2e2e31;
+  border: none;
+  border-bottom: 2px solid #fe736c;
+}
+
+#resume{
+  resize: none;
+}
+
+.classif{
+  color:#767575;
+}
+
+.classif_hover{
+  color: #b68f8d;
+  transition: all 0.5s;
+  transition-timing-function: linear;
+}
+
+.checked{
+  color: #fe736c;
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@media screen and (min-width:1560px){
+  .btn{
+    width:30%;
+  }
+
+  .tabcontent{
+    top: 25.5%;
+  }
+  
+  .content_rate,.content_head,.book_resume{
+    left: 5%;
+  }
+}
